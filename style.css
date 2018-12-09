@@ -10,14 +10,14 @@ h1 {
 
 h2{
 	font-family: fantasy;
-	text-align: center;
+    text-align: center;
 
 }
 
 h3 {
-	
-	
-	padding-left: 132px;
+    padding-left: 132px;
+    font-family: fantasy;
+    color: whtie; 
 	
 	
 }
@@ -88,4 +88,14 @@ p#home{
 
 .active {
     background-color: #2b4051;
+}
+
+.mainBox{
+    border: 5px solid white;
+}
+
+.insideBox{
+    border: 2px solid white;
+    padding: 5px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif
 }
