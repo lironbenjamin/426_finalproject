@@ -9,15 +9,17 @@ h1 {
 }
 
 h2{
-	font-family: fantasy;
+	font-family: Verdana, Geneva, Tahoma, sans-serif;
     text-align: center;
+    color: white;
+
 
 }
 
 h3 {
     padding-left: 132px;
-    font-family: fantasy;
-    color: whtie; 
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    color: white; 
 	
 	
 }
@@ -92,10 +94,19 @@ p#home{
 
 .mainBox{
     border: 5px solid white;
+    padding: 8px;
+    width: 260px;
+   
+
 }
 
 .insideBox{
     border: 2px solid white;
-    padding: 5px;
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif
+    width: 250px;
+    height: 100px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    color: #b2dcff;
+    margin-left:auto;
+    margin-right:auto;
+    padding: 4px;
 }
