@@ -92,21 +92,26 @@ p#home{
     background-color: #2b4051;
 }
 
-.mainBox{
-    border: 5px solid white;
+.leg-section{
+    background:rgb(0, 255, 213);
     padding: 8px;
-    width: 260px;
+    border-radius: 20px;
+    margin: 15px 5px 15px 5px;
    
 
 }
 
 .insideBox{
-    border: 2px solid white;
+    border: 2px solid rgb(118, 143, 255);
+    background: rgb(219, 219, 219);
+    border-radius: 20px; 
     width: 250px;
-    height: 100px;
+    height: 200px;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    color: #b2dcff;
-    margin-left:auto;
-    margin-right:auto;
-    padding: 4px;
+    margin: 2px;
+}
+
+.search {
+    float: right;
+    margin-right: 15px;
 }
