@@ -8,8 +8,9 @@ body {
     font-family: "Helvetica Neue", Helvetica, sans-serif;
     background-color: darkslategray; 
     background-image: url(back3.jpg);
-    background-repeat: no repeat; 
+    background-repeat: no-repeat; 
     background-position: cover;
+    background-size: 100%;
    }
 
 .loginbox {
@@ -134,11 +135,12 @@ p#home{
 .navbar{
     font-family: cursive;
     text-align: center;
-   list-style-type: none;
+    list-style-type: none;
     margin: 0;
     padding: 0;
     overflow: hidden;
     background-color: #b2dcff;
+    height: 50px;
     
     
 }
@@ -158,9 +160,16 @@ p#home{
 }
 
 /* Change the link color to #111 (black) on hover */
-.navbar li a:hover {
+.navbar a:hover {
     background-color: #FFF;
 	 
+}
+
+.navbar-item {
+    margin: 15px;
+    font-size: 20pt;
+    height: 100%;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
 .active {
