@@ -94,11 +94,12 @@ p#home{
 
 .leg-section{
     background:#b2dcff;
-    padding: 8px;
     border-radius: 20px;
+    padding: 10px;
     margin: 15px 5px 15px 5px;
-   
-
+    display: block;
+    height: 300px;
+    line-height: 0px;
 }
 
 .insideBox{
@@ -106,12 +107,25 @@ p#home{
     background: rgb(219, 219, 219);
     border-radius: 20px; 
     width: 250px;
-    height: 200px;
+    height: 95%;
+    margin-left: 5px;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    margin: 2px;
+    float: left;
+    display: block;
 }
 
 .search {
     float: right;
     margin-right: 15px;
 }
+
+.flight-table {
+    display: block;
+    border: 2px solid red;
+    border-radius: 15px;
+    margin-left: 30px;
+    width: 250px;
+    height: 95%;
+    float: left;
+}
+

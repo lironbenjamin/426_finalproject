@@ -28,7 +28,7 @@ $(document).ready(() => {
 
     let container = $('#tripContainer');
 
-    let tile = "<div class='leg-section'><div class='insideBox'><p>Origin: <input type='text' class='origin'></p><p>Destination: <input type='text' class='dest'></p><p>Date:</p><button type='button' class='search'>Search Flights</button></div></div>"
+    let tile = "<div class='leg-section'><div class='insideBox'><p>Origin: <input type='text' class='origin'></p><p>Destination: <input type='text' class='dest'></p><p>Date:</p><button type='button' class='search'>Search Flights</button></div><div class='flight-table'></div></div>"
 
 
     $(document).on('click', '.start', function () {
@@ -38,25 +38,57 @@ $(document).ready(() => {
     $(document).on('click', '.search', function () {
         currentLeg = $(this).parents('.leg-section');
         currentDiv = $(this).parent();
-
-        let promise1 = new Promise((resolve, reject) =>{
-            origin = $('.origin').val();
-            dest = $('.dest').val();
-
-            if (origin !== null){
-                resolve(origin, dest)
+        let origin = '';
+        let dest = '';
+        let flights;
+        $.ajax(root_url + 'airports?filter[code]=' + $('.origin').val(), {
+            type: 'GET',
+            async: false,
+            xhrFields: {withCredentials: true},
+            dataType: 'json',
+            success: (response) => {
+                origin = response[0].id;
+            },
+            error: () => {
+            console.log('Failed to find matching Airport');
             }
+        });
 
-            if (oID === null){
-                reject("rip")
+        $.ajax(root_url + 'airports?filter[code]=' + $('.dest').val(), {
+            type: 'GET',
+            async: false,
+            xhrFields: {withCredentials: true},
+            dataType: 'json',
+            success: (response) => {
+                dest = response[0].id;
+            },
+            error: () => {
+            console.log('Failed to find matching Airport');
             }
+        });
 
-        })
-        promise1.then( (o, d) => {
-            console.log(getAirportID('BOS')); 
-            }).catch( (message) => {
-               console.log(message);
-         })
+        $.ajax(root_url + 'flights?filter[departure_id]=' + origin + '&filter[arrival_id]=' + dest, {
+            type: 'GET',
+            xhrFields: {withCredentials: true},
+            async: false,
+            dataType: 'json',
+            success: (response) => {
+                flights = response;
+            },
+            error: () => {
+            console.log('Failed to find matching Airport');
+            }
+        });
+        
+        console.log(flights[0].id);
+        currentLeg.append(flights[0].id);
+
+        // console.log(origin);
+        // console.log(dest);
+    
+
+
+
 
         
 
@@ -67,9 +99,11 @@ $(document).ready(() => {
 let getAirportID = function(code){
     $.ajax(root_url + 'airports?filter[code]=' + code, {
         type: 'GET',
+        async: false,
         xhrFields: {withCredentials: true},
         dataType: 'json',
         success: (response) => {
+            console.log(response);
             return response[0].id;
         },
         error: () => {
@@ -79,6 +113,9 @@ let getAirportID = function(code){
 }
 
 let getFlightList = function(origin, dest){
+    
+
+    
     $.ajax(root_url + 'flights?filter[departure_id]=' + origin + '&filter[arrival_id]=' + dest, {
         type: 'GET',
         xhrFields: {withCredentials: true},
