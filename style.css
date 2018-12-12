@@ -14,7 +14,8 @@ body {
 .loginbox {
     width: 300px;
     height:400px;
-    background: rgb(93, 106, 248);
+    background:rgba(118, 143, 255, .8);
+    /* rgb(93, 106, 248) */
     color: #fff;
     /* top: 50%;  */
     /* position: relative; */
@@ -23,7 +24,7 @@ body {
     /* transform: translate(200%, 200%); */
     box-sizing: border-box; 
     padding: 70px 30px;
-    opacity: .8;
+    /* opacity: .8; */
     
 }
 
@@ -151,9 +152,11 @@ p#home{
     text-align: center;
     list-style-type: none;
     margin: 0;
+    
     padding: 0;
     overflow: hidden;
-    background-color: #b2dcff;
+    background-color: #61b0f0;
+    /* background: rgba(27, 67, 119); */
     height: 50px;
     
     
@@ -191,7 +194,8 @@ p#home{
 }
 
 .leg-section{
-    background:#b2dcff;
+    background:#d1eaff;
+    border: 2px solid darkgray;
     border-radius: 20px;
     padding: 10px;
     margin: 15px 5px 15px 5px;
@@ -201,7 +205,8 @@ p#home{
 
 .insideBox{
     border: 2px solid rgb(118, 143, 255);
-    background: rgb(219, 219, 219);
+    /* background: rgb(219, 219, 219); */
+    background: rgb(97, 176, 240, .6);
     border-radius: 20px; 
     width: 250px;
     height: 95%;
@@ -274,19 +279,26 @@ table {
     border: none;
     outline: none;
     height: 40px;
-    width: 80px;
+    width: 100px;
     background: #1b4377;
     color: #fff;
-    font-size: 11px;
+    font-size: 12px;
     border-radius: 20px;
+    
+    float: none;
+       
+        position: relative;
+        left: 70px;
+        right: 0;
 
 }
 
 .search:hover, .add:hover
 {
     cursor: pointer;
-    background: #f1f1f0;
+    background: #e0ddd3;
     color: #000;
     border: 2px solid black;
 
 }
+
