@@ -184,6 +184,7 @@ $(document).on('click', '.iNav', function () {
                 instances = response;
                 currentLeg.find('.flights-pane').remove()
                 currentLeg.append("<table class='flights-pane'><tr><th>Airline</th><th>Date</th><th>Flight ID</th></tr></table>");
+                currentLeg.append(tile2);
             },
             error: () => {
             console.log('Failed to find matching Airport');
@@ -226,7 +227,7 @@ $(document).on('click', '.iNav', function () {
 
     let tile = "<div class='leg-section'><div class='insideBox'><p>Origin: <input list='airports' class='origin'><datalist id='airports'><option value='BOS'><option value='RDU'><option value='CHI'></datalist></p><p>Destination: <input list='airports' class='dest'><datalist id='airports'><option value='BOS'><option value='RDU'><option value='CHI'></datalist></p><button type='button' class='search'>Search Flights</button><button class='add'>Add Flight to Itinerary</button></div></div>"
 
-    let tile2 = "<div class ='leg-section'><div class='insideBox'><div id='floating-panel'><input id='address' type='textbox' value='Sydney, NSW'><input id='submit' type='button' value='Geocode'></div><div id='map'><script async defer src='https://maps.googleapis.com/maps/api/js?key=AIzaSyCwPFArHQ86xloIhaWtkUHNIOQZ2HCcl5s&callback=initMap'></script></div></div>"
+    let tile2 = "<div id='floating-panel'><input id='address' type='textbox' value='Sydney, NSW'><input id='submit' type='button' value='Geocode'></div><div id='map'><script async defer src='https://maps.googleapis.com/maps/api/js?key=AIzaSyCwPFArHQ86xloIhaWtkUHNIOQZ2HCcl5s&callback=initMap'></script></div>"
 });
 
 let getItinerary = function(){
