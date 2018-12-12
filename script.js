@@ -37,8 +37,9 @@ $(document).ready(() => {
         main.append('<div id="itineraryinfobg"><h3>Your Information</h3><div id="itineraryinfo"></div></div>');
         for(i = 0; i < itinerary.length;i++){
             let info = JSON.parse(itinerary[i].info);
-            let table = $('<table id="flightdata"></table>');
-            table.append("<tr><th>Flight - Leg " + (i+1) + "</th></tr>");
+            console.log(itinerary[i].id);
+            let table = $('<table id="flightdata" legId=' + itinerary[i].id + '></table>');
+            table.append("<tr><th>Flight - Leg " + (i+1) + "</th><th><button class='rm_it'><i class='fa fa-trash'></i> Remove From Itinerary</button></th></tr>");
             table.append("<tr><td>Flight ID:</td><td>" + info.flightId + "</td></tr>");
             table.append("<tr><td>Origin:</td><td>" + info.origin + "</td></tr>");
             table.append("<tr><td>Destination:</td><td>" + info.dest + "</td></tr>");
@@ -136,6 +137,8 @@ $(document).on('click', '.iNav', function () {
             }
         });
     });
+
+
     
  ///////////////////////////////////////////////////////
  ////////////// Tirp Planner Functionality /////////////
@@ -241,7 +244,22 @@ $(document).on('click', '.iNav', function () {
         addToItinerary(currentFlight, origin, dest);
     });
 
-    ////////////// get itinerary /////////////////////
+    ////////// delete item from Itinerary ////////////
+$(document).on('click', '.rm_it', function () {
+    currentLeg = $(this).parents('#flightdata');
+    id = currentLeg.attr('legId');
+    $.ajax(root_url + 'itineraries/' + id, {
+        type: 'DELETE',
+        xhrFields: {withCredentials: true},
+        dataType: 'json',
+        success: (response) => {
+            build_itinerary();
+        },
+        error: () => {
+        alert('Inncorect credientials');
+        }
+    });
+});
 
 
  /////////////////////////////////////////////////////
