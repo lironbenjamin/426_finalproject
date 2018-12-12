@@ -202,7 +202,9 @@ p#home{
 }
 
 .leg-section{
-    background:#d1eaff;
+    background: rgb(209, 234, 255);
+    
+    /* #d1eaff; */
     border: 2px solid darkgray;
     border-radius: 20px;
     padding: 15px;
@@ -239,9 +241,7 @@ p#home{
     float: left;
 }
 
-.flight:hover {
-    background: rgb(247, 139, 247);
-}
+
 
 table {
     font-family: arial, sans-serif;
@@ -255,13 +255,35 @@ table {
     padding: 8px;
   }
   
-  tr:nth-child(even) {
+  /* tr:nth-child(even) {
     background-color: #dddddd;
+
+  } */
+
+  .airlinerow{
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: rgb(165, 165, 175);
   }
+
+  .selected {
+      background-color: #1b4377;
+      color: white;
+  }
+
+  .legRow {
+    background-color: #1b4377;
+    color: white;
+}
+
+  .flight:hover {
+    background: rgb(118, 143, 255 );
+}
 
   #map {
     height: 100%;
-    width: 55%;
+    width: 56%;
   }
   /* Optional: Makes the sample page fill the window. */
   html, body {
@@ -351,7 +373,7 @@ table {
 }
 
 #itineraryinfo{
-    background: rgba(27, 67, 119, .5);
+    background: rgba(57, 74, 95, 0.5);
     /* background:#1b4377; */
     width: 800px;
     height: 500px;
@@ -360,11 +382,3 @@ table {
     margin: 0 auto;
     overflow: scroll;
     }
-
-
-    .selected{
-
-        background-color: blue;
-    }
-
-

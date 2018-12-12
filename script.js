@@ -39,7 +39,7 @@ $(document).ready(() => {
             let info = JSON.parse(itinerary[i].info);
             console.log(itinerary[i].id);
             let table = $('<table id="flightdata" legId=' + itinerary[i].id + '></table>');
-            table.append("<tr><th>Flight - Leg " + (i+1) + "</th><th><button class='rm_it'><i class='fa fa-trash'></i> Remove From Itinerary</button></th></tr>");
+            table.append("<tr class='legRow'><th>Flight - Leg " + (i+1) + "</th><th><button class='rm_it'><i class='fa fa-trash'></i> Remove From Itinerary</button></th></tr>");
             table.append("<tr><td>Flight Number:</td><td>" + info.flight_num + "</td></tr>");
             table.append("<tr><td>Date:</td><td>" + info.date + "</td></tr>");
             table.append("<tr><td>Origin:</td><td>" + info.origin + "</td></tr>");
@@ -212,7 +212,7 @@ $(document).on('click', '.iNav', function () {
                 instances = response;
                 currentLeg.find('.flights-pane').remove()
                 currentLeg.find('#map').remove()
-                currentLeg.append("<table class='flights-pane'><tr><th>Airline</th><th>Date</th><th>Flight ID</th></tr></table>");
+                currentLeg.append("<table class='flights-pane'><tr class='airlinerow'><th class='airlineheader'>Airline</th><th>Date</th><th>Flight ID</th></tr></table>");
                 currentLeg.append(tile2);
             },
             error: () => {
