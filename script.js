@@ -40,13 +40,14 @@ $(document).ready(() => {
             console.log(itinerary[i].id);
             let table = $('<table id="flightdata" legId=' + itinerary[i].id + '></table>');
             table.append("<tr><th>Flight - Leg " + (i+1) + "</th><th><button class='rm_it'><i class='fa fa-trash'></i> Remove From Itinerary</button></th></tr>");
-            table.append("<tr><td>Flight ID:</td><td>" + info.flightId + "</td></tr>");
+            table.append("<tr><td>Flight Number:</td><td>" + info.flight_num + "</td></tr>");
+            table.append("<tr><td>Date:</td><td>" + info.date + "</td></tr>");
             table.append("<tr><td>Origin:</td><td>" + info.origin + "</td></tr>");
+            table.append("<tr><td>Departure:</td><td>" + info.departs + "</td></tr>");
             table.append("<tr><td>Destination:</td><td>" + info.dest + "</td></tr>");
-            table.append("<tr><td>Date:</td><td>" + "data" + "</td></tr>");
+            table.append("<tr><td>Arrives:</td><td>" + info.arrives + "</td></tr>");
             $('#itineraryinfo').append(table[0]);
         }
-
     }
 
     let build_change_password = function(){
@@ -232,6 +233,7 @@ $(document).on('click', '.iNav', function () {
     //////// selecting a flight ///////////////////////////////////
     $(document).on('click', 'tr', function () {
         currentFlight = $(this).attr('fID');
+        $(this).addClass('selected').siblings().removeClass('selected');
         console.log(currentFlight);
     });
 
@@ -239,9 +241,47 @@ $(document).on('click', '.iNav', function () {
     $(document).on('click', '.add', function () {
         currentLeg = $(this).parents('.leg-section');
         currentDiv = $(this).parent();
+        let departs = '';
+        let arrives = '';
+        let fl_id = '';
+        let fl_nm = '';
+        let date = '';
+
+        $.ajax(root_url + 'instances/' + currentFlight, {
+            type: 'GET',
+            async: false,
+            xhrFields: {withCredentials: true},
+            dataType: 'json',
+            success: (response) => {
+                fl_id = response.flight_id;
+                date = response.date;
+            },
+            error: () => {
+            console.log('Failed to find matching Flight');
+            }
+        });
+
+        $.ajax(root_url + 'flights/' + fl_id, {
+            type: 'GET',
+            async: false,
+            xhrFields: {withCredentials: true},
+            dataType: 'json',
+            success: (response) => {
+                departs = response.departs_at;
+                arrives = response.arrives_at;
+                fl_nm = response.number;
+            },
+            error: () => {
+            console.log('Failed to find matching Flight');
+            }
+        });
+
+
+
         let origin = currentLeg.find('.origin').val()
         let dest = currentLeg.find('.dest').val();
-        addToItinerary(currentFlight, origin, dest);
+        console.log(date);
+        addToItinerary(currentFlight, origin, dest, departs, arrives, fl_nm, date);
     });
 
     ////////// delete item from Itinerary ////////////
@@ -286,7 +326,7 @@ $(document).on('click', '.rm_it', function () {
         }
     });
 
-    let tile = "<div class='leg-section'><div class='insideBox'><p>Origin: <input list='airports' class='origin'>" + dList + "</p><p>Destination: <input list='airports' class='dest'>" + dList + "</p><button type='button' class='search'>Search Flights</button><button class='add'>Add Flight to Itinerary</button></div></div>"
+    let tile = "<div class='leg-section'><div class='insideBox'><p>Origin: <input list='airports' class='origin'>" + dList + "</p><p>Destination: <input list='airports' class='dest'>" + dList + "</p><button class='add'>Add Flight to Itinerary</button><button type='button' class='search'>Search Flights</button></div></div>"
 
     let tile2 = "<div id='map'><script async defer src='https://maps.googleapis.com/maps/api/js?key=AIzaSyCwPFArHQ86xloIhaWtkUHNIOQZ2HCcl5s&callback=initMap'></script></div>"
 });
@@ -308,12 +348,16 @@ let getItinerary = function(){
         return it;
 }
 
-let addToItinerary = function(id, origin, dest){
+let addToItinerary = function(id, origin, dest, departs, arrives, flNum, date){
     console.log('run');
     let info = {
         "flightId": id,
         "origin": origin,
-        "dest": dest
+        "dest": dest,
+        "departs": departs,
+        "arrives": arrives,
+        "flight_num": flNum,
+        "date": date
     };
     let infoStr = JSON.stringify(info);
     $.ajax(root_url + 'itineraries', {
