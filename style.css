@@ -135,6 +135,7 @@ p#home{
     text-align: center;
     list-style-type: none;
     margin: 0; 
+    /* margin-top: 20px; */
     padding: 0;
     overflow: hidden;
     background-color: #61b0f0;
@@ -208,12 +209,13 @@ p#home{
     margin: 15px 5px 15px 5px;
     display: block;
     height: 400px;
+    margin-top: 80px;
 }
 
 .insideBox{
     border: 2px solid rgb(118, 143, 255);
     /* background: rgb(219, 219, 219); */
-    background: rgb(97, 176, 240, .6);
+    background: rgba(97, 176, 240, .5);
     border-radius: 20px; 
     width: 250px;
     height: 95%;
@@ -222,6 +224,7 @@ p#home{
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     float: left;
     display: block;
+    
 }
 
 
@@ -356,6 +359,12 @@ table {
     /* opacity: .5; */
     margin: 0 auto;
     overflow: scroll;
+    }
+
+
+    .selected{
+
+        background-color: blue;
     }
 
 
