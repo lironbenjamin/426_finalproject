@@ -14,14 +14,18 @@ $(document).ready(() => {
     }
 
     let build_navbar = function(user){
-        nav = $('<nav class="navbar"><a class="navbar-item pNav">Plan</a><a class="navbar-item rNav">Reset Password</a><a class="navbar-item logNav">Logout</a></nav>');
+        nav = $('<nav class="navbar"><a class="navbar-item pNav">Add Flights</a><a class="navbar-item iNav">Itinerary</a><a class="navbar-item rNav">Reset Password</a><a class="navbar-item logNav">Logout</a></nav>');
         nav.insertBefore('.main');
     }
 
     let build_trip_planner = function(){
         main.empty();
-        main.append('<button class="start">Begin Planning Your Trip</buton>')
+        main.append(tile);
         
+    }
+
+    let build_itinerary = function(){
+        main.empty();
     }
 
     let build_change_password = function(){
@@ -68,6 +72,11 @@ $(document).ready(() => {
     $(document).on('click', '.pNav', function () {
         build_trip_planner();
     });
+
+////////////// Button click to build itinerary////////
+$(document).on('click', '.iNav', function () {
+    build_itinerary();
+});
 
 ////////////// Button click for reset password //////////
     $(document).on('click', '.rNav', function () {
