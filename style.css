@@ -94,8 +94,8 @@ h3 {
     padding-left: 132px;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     color: white; 
-	
-	
+    position: relative; 
+    left: 150px;	
 }
 
 p{
@@ -117,6 +117,22 @@ p#home{
 	margin: auto;
 	
 }
+#flightdata{
+    background: rgba(255, 255, 255, .5);
+    color: black;
+    /* opacity: .5; */
+    width: 100%;
+}
+
+#itineraryinfo{
+    background: rgba(27, 67, 119, .5);
+    /* background:#1b4377; */
+    width: 800px;
+    height: 500px;
+    color: black;
+    /* opacity: .5; */
+    margin: 0 auto;
+    }
 
 
 
