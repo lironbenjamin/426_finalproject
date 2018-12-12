@@ -13,7 +13,7 @@ body {
 
 .loginbox {
     width: 300px;
-    height:400px;
+    height:450px;
     background:rgba(118, 143, 255, .8);
     /* rgb(93, 106, 248) */
     color: #fff;
@@ -118,23 +118,6 @@ p#home{
 	margin: auto;
 	
 }
-#flightdata{
-    background: rgba(255, 255, 255, .5);
-    color: black;
-    /* opacity: .5; */
-    width: 100%;
-}
-
-#itineraryinfo{
-    background: rgba(27, 67, 119, .5);
-    /* background:#1b4377; */
-    width: 800px;
-    height: 500px;
-    color: black;
-    /* opacity: .5; */
-    margin: 0 auto;
-    }
-
 
 
 .center {
@@ -151,43 +134,67 @@ p#home{
     font-family: cursive;
     text-align: center;
     list-style-type: none;
-    margin: 0;
-    
+    margin: 0; 
     padding: 0;
     overflow: hidden;
     background-color: #61b0f0;
     /* background: rgba(27, 67, 119); */
     height: 50px;
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
     
     
 }
 
-.navbar li {
+.navbar-item{ 
+    transition: 0.3s ease;
+    background: #61b0f0;
+    color: #ffffff;
+    font-size: 20px;
+    text-decoration: none;
+    border-top: 4px solid #61b0f0;
+    border-bottom: 4px solid #61b0f0;
+    padding: 20px 0;
+    margin: 0 20px;
+    font-size: 20pt;
+    height: 100%;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+
+
+}
+
+.navbar-item:hover{
+    border-top: 4px solid #ffffff;
+    border-bottom: 4px solid #ffffff;
+    padding: 6px 0; 
+    
+}
+
+/* .navbar li {
     
     display: inline
-}
+} */
 
-.navbar li a {
+/* .navbar li a {
     display: block;
     color: #333;
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
     display: inline-block;
-}
+} */
 
 /* Change the link color to #111 (black) on hover */
-.navbar a:hover {
+/* .navbar a:hover {
     background-color: #FFF;
 	 
-}
+} */
 
-.navbar-item {
+/* .navbar-item {
     margin: 15px;
     font-size: 20pt;
     height: 100%;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-}
+} */
 
 .active {
     background-color: #2b4051;
@@ -197,10 +204,10 @@ p#home{
     background:#d1eaff;
     border: 2px solid darkgray;
     border-radius: 20px;
-    padding: 10px;
+    padding: 15px;
     margin: 15px 5px 15px 5px;
     display: block;
-    height: 300px;
+    height: 400px;
 }
 
 .insideBox{
@@ -210,22 +217,20 @@ p#home{
     border-radius: 20px; 
     width: 250px;
     height: 95%;
-    margin-left: 5px;
+    /* margin-left: 5px;
+    margin: 0 auto; */
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     float: left;
     display: block;
 }
 
-.search {
-    float: right;
-    margin-right: 15px;
-}
 
 .flights-pane {
     display: block;
     background: white;
     border-radius: 15px;
     margin-left: 30px;
+    padding: 5px;
     width: 275px;
     height: 95%;
     float: left;
@@ -253,7 +258,7 @@ table {
 
   #map {
     height: 100%;
-    width: 40%;
+    width: 55%;
   }
   /* Optional: Makes the sample page fill the window. */
   html, body {
@@ -275,7 +280,13 @@ table {
     padding-left: 10px;
   }
 
-  .search, .add
+  .search, .add {
+    float: right;
+    margin-right: 15px;
+    margin-top: 50px;
+}
+
+  .search, .add, #reset-btn
 {
     border: none;
     outline: none;
@@ -285,16 +296,17 @@ table {
     color: #fff;
     font-size: 12px;
     border-radius: 20px;
+    position: relative; 
+    /* left: 10px; */
     
-    float: none;
-       
-        position: relative;
-        left: 70px;
-        right: 0;
+    /* float: none; */
+    /* position: relative; */
+    /* left: 70px; */
+    /* right: 0; */
 
 }
 
-.search:hover, .add:hover
+.search:hover, .add:hover, #reset-btn:hover
 {
     cursor: pointer;
     background: #e0ddd3;
@@ -302,4 +314,48 @@ table {
     border: 2px solid black;
 
 }
+
+
+
+.rm_it {
+    background-color: DodgerBlue; /* Blue background */
+    border: none; /* Remove borders */
+    color: white; /* White text */
+    padding: 12px 16px; /* Some padding */
+    font-size: 16px; /* Set a font size */
+    cursor: pointer; /* Mouse pointer on hover */
+    float: right;
+  }
+  
+  /* Darker background on mouse-over */
+  .rm_it:hover {
+    background-color: RoyalBlue;
+  }
+  
+  #itineraryinfobg{
+      /* overflow: scroll; */
+      max-width: 2000px;
+      max-height: 550px;
+  }
+
+
+
+  #flightdata{
+    background: rgba(255, 255, 255, .5);
+    color: black;
+    margin-top: 15px;
+    width: 100%;
+}
+
+#itineraryinfo{
+    background: rgba(27, 67, 119, .5);
+    /* background:#1b4377; */
+    width: 800px;
+    height: 500px;
+    color: black;
+    /* opacity: .5; */
+    margin: 0 auto;
+    overflow: scroll;
+    }
+
 
