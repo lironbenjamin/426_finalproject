@@ -253,6 +253,7 @@ table {
 
   #map {
     height: 100%;
+    width: 40%;
   }
   /* Optional: Makes the sample page fill the window. */
   html, body {

@@ -1,9 +1,15 @@
 var root_url = "http://comp426.cs.unc.edu:3001/";
 
 $(document).ready(() => {
+
+
     let main = $('.main');
     let flightItinerary = [];
     currentFlight = '';
+    origLat = '';
+    origLng = '';
+    destLat = '';
+    destLng = '';
 
     //////Functions to rebuild inteface components /////
     let build_login = function(){
@@ -26,6 +32,20 @@ $(document).ready(() => {
 
     let build_itinerary = function(){
         main.empty();
+        itinerary = getItinerary();
+        console.log(itinerary);
+        main.append('<div id="itineraryinfobg"><h3>Your Information</h3><div id="itineraryinfo"></div></div>');
+        for(i = 0; i < itinerary.length;i++){
+            let info = JSON.parse(itinerary[i].info);
+            let table = $('<table id="flightdata"></table>');
+            table.append("<tr><th>Flight - Leg " + (i+1) + "</th></tr>");
+            table.append("<tr><td>Flight ID:</td><td>" + info.flightId + "</td></tr>");
+            table.append("<tr><td>Origin:</td><td>" + info.origin + "</td></tr>");
+            table.append("<tr><td>Destination:</td><td>" + info.dest + "</td></tr>");
+            table.append("<tr><td>Date:</td><td>" + "data" + "</td></tr>");
+            $('#itineraryinfo').append(table[0]);
+        }
+
     }
 
     let build_change_password = function(){
@@ -139,6 +159,8 @@ $(document).on('click', '.iNav', function () {
             dataType: 'json',
             success: (response) => {
                 origin = response[0].id;
+                origLat = response[0].latitude;
+                origLng = response[0].longitude;
             },
             error: () => {
             console.log('Failed to find matching Airport');
@@ -152,6 +174,8 @@ $(document).on('click', '.iNav', function () {
             dataType: 'json',
             success: (response) => {
                 dest = response[0].id;
+                destLat = response[0].latitude;
+                destLng = response[0].longitude;
             },
             error: () => {
             console.log('Failed to find matching Airport');
@@ -183,6 +207,7 @@ $(document).on('click', '.iNav', function () {
             success: (response) => {
                 instances = response;
                 currentLeg.find('.flights-pane').remove()
+                currentLeg.find('#map').remove()
                 currentLeg.append("<table class='flights-pane'><tr><th>Airline</th><th>Date</th><th>Flight ID</th></tr></table>");
                 currentLeg.append(tile2);
             },
@@ -214,7 +239,6 @@ $(document).on('click', '.iNav', function () {
         let origin = currentLeg.find('.origin').val()
         let dest = currentLeg.find('.dest').val();
         addToItinerary(currentFlight, origin, dest);
-        getItinerary();
     });
 
     ////////////// get itinerary /////////////////////
@@ -223,31 +247,57 @@ $(document).on('click', '.iNav', function () {
  /////////////////////////////////////////////////////
 
     //Create Home Page Elements
-    let flightsPane = "<div class='flights-pane'></div>"
 
-    let tile = "<div class='leg-section'><div class='insideBox'><p>Origin: <input list='airports' class='origin'><datalist id='airports'><option value='BOS'><option value='RDU'><option value='CHI'></datalist></p><p>Destination: <input list='airports' class='dest'><datalist id='airports'><option value='BOS'><option value='RDU'><option value='CHI'></datalist></p><button type='button' class='search'>Search Flights</button><button class='add'>Add Flight to Itinerary</button></div></div>"
+    let dList = '';
+    //create data list//
+    $.ajax(root_url + 'airports', {
+        type: 'GET',
+        async: false,
+        xhrFields: {withCredentials: true},
+        dataType: 'json',
+        success: (response) => {
+            dList += '<datalist id="airports">';
+            for(i = 0; i < response.length; i++){
+                code = response[i].code;
+                dList += '<option value="' + code + '">'
+            }
+            dList += '</datalist>'
+        },
+        error: () => {
+        console.log('Failed to find matching Airport');
+        }
+    });
 
-    let tile2 = "<div id='floating-panel'><input id='address' type='textbox' value='Sydney, NSW'><input id='submit' type='button' value='Geocode'></div><div id='map'><script async defer src='https://maps.googleapis.com/maps/api/js?key=AIzaSyCwPFArHQ86xloIhaWtkUHNIOQZ2HCcl5s&callback=initMap'></script></div>"
+    let tile = "<div class='leg-section'><div class='insideBox'><p>Origin: <input list='airports' class='origin'>" + dList + "</p><p>Destination: <input list='airports' class='dest'>" + dList + "</p><button type='button' class='search'>Search Flights</button><button class='add'>Add Flight to Itinerary</button></div></div>"
+
+    let tile2 = "<div id='map'><script async defer src='https://maps.googleapis.com/maps/api/js?key=AIzaSyCwPFArHQ86xloIhaWtkUHNIOQZ2HCcl5s&callback=initMap'></script></div>"
 });
 
 let getItinerary = function(){
-    console.log('function ran');
+    let it = ''
         $.ajax(root_url + 'itineraries', {
             type: 'GET',
             async: false,
             xhrFields: {withCredentials: true},
             dataType: 'json',
             success: (response) => {
-                console.log(response);
+                it = response;
             },
             error: () => {
             console.log('Failed to find get Itineraries');
             }
         });
+        return it;
 }
 
 let addToItinerary = function(id, origin, dest){
     console.log('run');
+    let info = {
+        "flightId": id,
+        "origin": origin,
+        "dest": dest
+    };
+    let infoStr = JSON.stringify(info);
     $.ajax(root_url + 'itineraries', {
         type: 'POST',
         xhrFields: {withCredentials: true},
@@ -255,12 +305,8 @@ let addToItinerary = function(id, origin, dest){
         data: {
             "itinerary": {
                 "confirmation_code": stringGen(6),
-                "email":"kmp@cs.unc.edu",
-                "info":{
-                    "flightId": id,
-                    "origin": origin,
-                    "dest": dest
-                }
+                "email": "lironb@live.unc.edu",
+                "info": infoStr
               }
         },
         success: (response) => {
@@ -304,12 +350,36 @@ let getFlightList = function(origin, dest){
 
 }
 
-//Google API or Google Map Coordinates 
+//Google API or Google Map Coordinates ////////////////////////////////////////////////////////////
 function initMap() {
+    var locations = [
+        ['Origin', origLat, origLng],
+        ['Destination', destLat, destLng]
+      ];
+    let centerLat = (Math.max(origLat, destLat) + Math.min(origLat, destLat))/2;
+    let centerLng = (Math.max(origLng, destLng) + Math.min(origLng, destLng))/2;
+    var center = {lat: centerLat, lng: centerLng};
     var map = new google.maps.Map(document.getElementById('map'), {
-      zoom: 8,
-      center: {lat: -34.397, lng: 150.644}
+      zoom: 4.3,
+      center: center
     });
+
+    for (count = 0; count < locations.length; count++) {
+        marker = new google.maps.Marker({
+          position: new google.maps.LatLng(locations[count][1], locations[count][2]),
+          map: map,
+          title: locations[count][0]
+        });
+    google.maps.event.addListener(marker, 'click', (function (marker, count) {
+          return function () {
+            infowindow.setContent(locations[count][0]);
+            infowindow.open(map, marker);
+          }
+        })(marker, count));
+      }
+
+    
+
     var geocoder = new google.maps.Geocoder();
   
     document.getElementById('submit').addEventListener('click', function() {
